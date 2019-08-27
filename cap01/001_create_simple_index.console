@@ -1,0 +1,6 @@
+PUT /nome_index/_doc/codigo
+{
+  "campo01":"valor do campo01",
+  "campo02":"valor do campo02",
+  "campo03":"valor do campo03"
+}
