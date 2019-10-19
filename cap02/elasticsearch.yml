@@ -1,0 +1,6 @@
+cluster.name: meu_cluster
+node.name: node-all
+network.host: _global_ 
+http.port: 9200
+discovery.seed_hosts: ["127.0.0.1"]
+cluster.initial_master_nodes: ["node-all"]

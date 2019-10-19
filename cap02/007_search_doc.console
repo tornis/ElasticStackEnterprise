@@ -1,0 +1,20 @@
+GET /meu_indice/_search?q=nome:Fulano de Beltrano
+
+GET /meu_indice/_search
+{
+  "query": {
+    "query_string": {
+      "default_field": "nome:",
+      "query": "fulano"
+    }
+  }
+}
+
+GET /meu_indice/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+GET /meu_indice/_doc/1

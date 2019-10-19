@@ -1,0 +1,6 @@
+PUT /meu_indice/_doc/1
+{
+  "nome:":"Rodrigo Tornis",
+  "nascimento":"07/01/80",
+  "profissao":"Especialista Elastic Stack"
+}

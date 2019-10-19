@@ -1,0 +1,14 @@
+GET /nome_index/_search
+{
+  "query": { 
+    "match_all": { }
+  },
+  "aggs": {
+    "conta": {
+      "terms": {
+        "field": "campo01.keyword",
+        "size": 10
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+# mkdir -p /opt/elastic
+# cd /opt/elastic
+# wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.3.1-x86_64.rpm
+# yum install -y java-1.8.0-openjdk curl 
+# yum install -y elasticsearch-7.3.1-x86_64.rpm
+# systemctl enable elasticsearch
+# firewall-cmd --permanent --add-port=9200/tcp 
+# firewall-cmd --permanent --add-port=9300/tcp
+# firewall-cmd --reload 
+# sysctl -w vm.max_map_count=262144
+# echo "vm.max_map_count = 262144" >> /etc/sysctl.conf
+# ulimit -n 65535
+# echo "elasticsearch  -  nofile  65535" >> /etc/security/limits.conf

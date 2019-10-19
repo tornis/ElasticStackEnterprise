@@ -1,0 +1,6 @@
+PUT /meu_indice/_doc/1
+{
+  "nome:":"Fulano de Beltrano",
+  "nascimento":"25/10/90",
+  "profissao":"Especialista Linux Red Hat"
+}
