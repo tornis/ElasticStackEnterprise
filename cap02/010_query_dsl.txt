@@ -118,3 +118,21 @@ GET /banco/_search
     }
   }
 }
+
+
+GET /banco/_search
+{
+  "query": {
+    "bool": {
+      "must": { "match_all": {} },
+      "filter": {
+        "range": {
+          "age": {
+            "gte": 20,
+            "lte": 30
+          }
+        }
+      }
+    }
+  }
+}
