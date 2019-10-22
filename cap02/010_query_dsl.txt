@@ -1,0 +1,120 @@
+# Busca usando URIs
+GET /banco/_search?q=*&sort=account_number:desc
+
+# Busca todos os documentos
+GET /banco/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+# Busca todos os documentos mas limitando o resultado 
+GET /banco/_search
+{
+  "query": {
+    "match_all": {}
+  },
+  "size": 1
+}
+# Busca todos os documentos mas limitando o resultado 
+GET /banco/_search
+{
+  "query": {
+    "match_all": {}
+  },
+  "from": 50, 
+  "size": 10
+}
+# Busca todos os documentos em ordem decrescente
+GET /banco/_search
+{
+  "query": { "match_all": {} },
+  "sort": [
+    { "account_number": "desc" }
+  ]
+}
+
+# Retornando apenas campos desejados 
+GET /banco/_search
+{
+  "query": { "match_all": {} },
+  "_source": ["account_number", "balance"]
+}
+
+# Retornando apenas documentos onde campo account_number for igual a 20
+GET /banco/_search
+{
+  "query": { "match": { "account_number": 20 } }
+}
+
+# Retornando apenas documentos onde termo address contiver "mill"
+GET /banco/_search
+{
+  "query": { "match": { "address": "mill" } }
+}
+
+# Retornando documentos onde termo address contiver "nova ou ford"
+GET /banco/_search
+{
+  "query": { "match": { "address": "nova ford" } }
+}
+
+# Retornado documentos que contenha na frase "thomas street"
+GET /banco/_search
+{
+  "query": { "match_phrase": { "address": " thomas street" } }
+}
+
+# Retorna todos os documentos em que os dois termos pesquisados sejam verdadeiros
+GET /banco/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        { "match": { "address": "street" } },
+        { "match": { "address": "ford" } }
+      ]
+    }
+  }
+}
+
+# Retorna todos os documentos em que um dos termos pesquisados seja verdadeiro
+GET /banco/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        { "match": { "address": "street" } },
+        { "match": { "address": "ford" } }
+      ]
+    }
+  }
+}
+
+# Retorna todas os documentos que não contenha os termo "ford" e "street"
+GET /banco/_search
+{
+  "query": {
+    "bool": {
+      "must_not": [
+        { "match": { "address": "ford" } },
+        { "match": { "address": "street" } }
+      ]
+    }
+  }
+}
+
+# Retorna todos os documentos de pessoas com 40 anos mas que não vive na cidade de Oretta
+GET /banco/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        { "match": { "age": "40" } }
+      ],
+      "must_not": [
+        { "match": { "city": "Oretta" } }
+      ]
+    }
+  }
+}

@@ -1,0 +1,94 @@
+# Definindo o analisado para o campo nome
+PUT meuindice
+{
+  "mappings": {
+    "properties": {
+      "nome": {
+        "type":     "text",
+        "analyzer": "standard"
+      }
+    }
+  }
+}
+
+# Testando o analisador whitespace
+POST _analyze
+{
+  "analyzer": "writespace",
+  "text":     "O rato roeu a roupa do rei de roma"
+}
+
+# Testando o analisador uppercase do standard
+POST _analyze
+{
+  "tokenizer": "standard",
+  "filter":  [ "uppercase" ],
+  "text":      "O rato roeu a roupa do rei de roma"
+}
+
+# Testando o analisador uppercase do standard
+POST _analyze
+{
+  "analyzer": "stop",
+  "text":      "O rato roeu a roupa do rei de roma"
+}
+
+# Customizando o analisador e definindo língua
+PUT /meuindice2
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "brazilian_stop": {
+          "type":       "stop",
+          "stopwords":  "_brazilian_" 
+        },
+        "brazilian_keywords": {
+          "type":       "keyword_marker",
+          "keywords":   ["exemplo"] 
+        },
+        "brazilian_stemmer": {
+          "type":       "stemmer",
+          "language":   "brazilian"
+        }
+      },
+      "analyzer": {
+        "rebuilt_brazilian": {
+          "tokenizer":  "standard",
+          "filter": [
+            "lowercase",
+            "brazilian_stop",
+            "brazilian_keywords",
+            "brazilian_stemmer"
+          ]
+        }
+      }
+    }
+  }
+}
+
+# Testando o analisardor brasileiro
+POST meuindice2/_analyze
+{
+  "analyzer": "standard",
+  "text":     "O rato roeu a roupa do rei de roma"
+}
+
+# Testando o Filtro do analisador
+POST meuindice2/_analyze
+{
+  "tokenizer": "standard",
+  "filter":  [ "brazilian_stop" ],
+  "text":      "O RATO roeu a ROUPA do rei de roma"
+}
+
+#Character Filter removendo tags html
+POST _analyze
+{
+  "tokenizer":      "keyword", 
+  "char_filter":  [ "html_strip" ],
+  "text": "<p>I&apos;m so <b>happy</b>!</p>"
+}
+
+
+

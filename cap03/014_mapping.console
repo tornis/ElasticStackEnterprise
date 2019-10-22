@@ -1,0 +1,54 @@
+# Definindo o Mapeamento dos campo
+PUT meuindice
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 0
+  }, 
+  "mappings": {
+    "usuario": {
+      "properties": {
+        "nome": { "type": "text" },
+        "login": { "type": "keyword" },
+        "email": { "type": "keyword" },
+        "aniversario": { "type": "date" },
+        "salario": { "type": "float" },
+        "idade": { "type": "integer" },
+        "ativo": { "type": "boolean"}
+      }
+    }
+  }
+}
+
+# Definindo um mapping para _doc
+PUT meuindice2
+{
+  "mappings": {
+    "_doc": {
+      "properties": {
+        "nome": { "type": "text" },
+        "login": { "type": "keyword" },
+        "email": { "type": "keyword" }
+      }
+    }
+  }
+}
+
+# Usando o multi-field
+PUT meuindice
+{
+  "mappings": {
+    "properties": {
+      "cidade": {
+        "type": "text",
+        "fields": {
+          "raw": { 
+            "type":  "keyword"
+          }
+        }
+      }
+    }
+  }
+}
+
+

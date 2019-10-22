@@ -1,0 +1,4 @@
+# cd /opt/elastic
+# wget  https://raw.githubusercontent.com/tornis/ElasticStackEnterprise/master/cap02/accounts.json
+# curl  -H "Content-Type: application/json" -X POST "http://192.168.0.1:9200/banco/_doc/_bulk?pretty&refresh" --data-binary "@accounts.json"
+# curl -X GET "http://192.168.0.1:9200/_cat/indices?v"	

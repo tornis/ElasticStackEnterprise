@@ -1,0 +1,67 @@
+# Criando um alias
+POST /_aliases
+{
+    "actions" : [
+        { "add" : { "index" : "banco", "alias" : "meualias" } }
+    ]
+}
+
+#Removendo um alias
+POST /_aliases
+{
+    "actions" : [
+        { "remove" : { "index" : "banco", "alias" : "meualias" } }
+    ]
+}
+
+# Adicionado mais indices a um alias
+POST /_aliases
+{
+    "actions" : [
+        { "add" : { "index" : "banco", "alias" : "meualias" } },
+        { "add" : { "index" : "banco2", "alias" : "meualias" } }
+    ]
+}
+
+# Usando coringa para adicionar mais indices a um alias
+POST /_aliases
+{
+    "actions" : [
+        { "add" : { "index" : "banco*", "alias" : "maualias" } }
+    ]
+}
+
+# Usando critérios para criação de alias
+POST /_aliases
+{
+    "actions" : [
+        {
+            "add" : {
+                 "index" : "banco",
+                 "alias" : "poupex_credito_mulher",
+                 "filter" : { "term" : { "gender" : "F" } 
+                 }
+            }
+        }
+    ]
+}
+
+# Definindo um alias de gravação
+POST /_aliases
+{
+    "actions" : [
+        {
+            "add" : {
+                 "index" : "banco",
+                 "alias" : "poupex_write",
+                 "is_write_index" : true
+            }
+        },
+        {
+            "add" : {
+                 "index" : "banco2",
+                 "alias" : "poupex"
+            }
+        }
+    ]
+}
