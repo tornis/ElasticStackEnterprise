@@ -1,0 +1,127 @@
+# Pipeline de troca de valor
+PUT _ingest/pipeline/meu_pipeline
+{
+  "description" : "meu primeiro pipeline",
+  "processors" : [
+    {
+      "set" : {
+        "field": "campo01",
+        "value": "valor que eu quero aqui"
+      }
+    }
+  ]
+}
+
+PUT meu_indice/_doc/1?pipeline=meu_pipeline
+{
+  "campo01": "Esse valor vai ser trocado"
+}
+
+GET meu_indice/_search
+
+
+PUT _ingest/pipeline/apaga_valor
+{
+  "processors": [
+    {
+      "drop": {
+        "if": "ctx.campo01 == 'fraude'"
+      }
+    }
+  ]
+}
+
+# Pipeline Drop 
+POST meu_indice/_doc/2?pipeline=apaga_valor
+{
+  "campo01" : "fraude"
+}
+
+GET meu_indice/_search
+
+# Processor GEOIP
+PUT _ingest/pipeline/geoip
+{
+  "description" : "Colocando coordenada no IP",
+  "processors" : [
+    {
+      "geoip" : {
+        "field" : "ip"
+      }
+    }
+  ]
+}
+
+PUT meu_indice/_doc/3?pipeline=geoip
+{
+  "ip": "8.8.8.8"
+}
+
+GET meu_indice/_doc/3
+
+# Processor HTML Strip
+PUT _ingest/pipeline/remove_html
+{
+  "description" : "Removendo Tags HTML",
+  "processors" : [
+    {
+      "html_strip" : {
+        "field" : "texto"
+      }
+    }
+  ]
+}
+
+PUT meu_indice/_doc/4?pipeline=remove_html
+{
+  "texto": "<b>Olá mundo cruel</b><br><p>Vai curintia!!!</p>"
+}
+
+GET meu_indice/_doc/4
+
+
+
+
+# Criando um pipeline 
+PUT _ingest/pipeline/pipeline001
+{
+  "description" : "Pipeline XPTO",
+  "version": "1",
+  "processors" : [
+    {
+      "set" : {
+        "field": "nome",
+        "value": "teste2"
+      }
+    }
+  ]
+}
+
+# Consultado um pipeline 
+GET _ingest/pipeline/pipeline001
+
+# Removendo pipelines 
+DELETE  _ingest/pipeline/pipeline001
+DELETE  _ingest/pipeline/pipeline*
+
+
+# Simula um teste no pipeline já passando os eventos para teste  
+POST /_ingest/pipeline/pipeline001/_simulate
+{
+  "docs": [
+    {
+      "_index": "index",
+      "_id": "id",
+      "_source": {
+        "nome": "Fulano"
+      }
+    },
+    {
+      "_index": "index",
+      "_id": "id",
+      "_source": {
+        "nome": "Ciclano"
+      }
+    }
+  ]
+}
