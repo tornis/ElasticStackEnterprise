@@ -1,0 +1,20 @@
+PUT /indice2
+{
+  "settings": {
+    "index.routing.allocation.require.box_type": "hot"
+  }
+}
+
+POST /indice2/_doc/
+{
+    "nome" : "Fulano de Beltrano",
+    "aniversario" : "2010-01-01T08:00:00",
+    "mensagem" : "Olá mundo! 5 X 0"
+}
+
+PUT /indice2/_settings 
+{ 
+  "settings": { 
+    "index.routing.allocation.require.box_type": "warm"
+  } 
+}
