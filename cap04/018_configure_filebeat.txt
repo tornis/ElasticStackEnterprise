@@ -1,0 +1,7 @@
+wget https://raw.githubusercontent.com/tornis/ElasticStackEnterprise/master/cap04/apache.log
+filebeat test config
+filebeat modules list
+filebeat modules enable apache
+filebeat setup
+systemctl start filebeat
+tail -f /var/log/filebeat/filebeat

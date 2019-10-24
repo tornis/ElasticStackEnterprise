@@ -1,0 +1,7 @@
+cd /opt/elastic
+wget https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-7.4.0-x86_64.rpm
+wget https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.4.0-x86_64.rpm
+yum install filebeat-7.4.0-x86_64.rpm
+yum install metricbeat-7.4.0-x86_64.rpm
+systemctl enable filebeat
+systemctl enable metricbeat
