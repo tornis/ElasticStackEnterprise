@@ -1,0 +1,11 @@
+curl -XGET 'localhost:9600/_node/pipeline'
+
+curl -XGET 'localhost:9600/_node/os'
+
+curl -XGET 'localhost:9600/_node/jvm'
+
+curl -XGET 'localhost:9600/_node/plugins?pretty'
+
+curl -XGET 'localhost:9600/_node/stats/process
+
+curl -XGET 'localhost:9600/_node/stats/events
