@@ -1,3 +1,9 @@
+wget https://artifacts.elastic.co/downloads/logstash/logstash-7.4.0.rpm
+
+yum install logstash-7.4.0.rpm
+
+systemctl enable logstash
+
 curl -XGET 'localhost:9600/_node/pipeline'
 
 curl -XGET 'localhost:9600/_node/os'
