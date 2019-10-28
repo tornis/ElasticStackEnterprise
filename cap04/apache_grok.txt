@@ -1,0 +1,2 @@
+173.252.95.10 - [01/Aug/2019:06:29:20 -0300] "GET /pbh/ecp/images.do?evento=imagem&urlPlc=site_10.jpg HTTP/1.1" 302 273 "-" "facebookexternal
+hit/1.1 (+http://www.facebook.com/externalhit_uatext.php)"

@@ -1,0 +1,17 @@
+POST _security/role/logstash_writer
+{
+  "cluster": ["manage_index_templates", "monitor", "manage_ilm"], 
+  "indices": [
+    {
+      "names": [ "logstash-*" ], 
+      "privileges": ["write","delete","create_index","manage","manage_ilm"]  
+    }
+  ]
+}
+
+POST _security/user/logstash_internal
+{
+  "password" : "123456",
+  "roles" : [ "logstash_writer","logstash_admin" ],
+  "full_name" : "Internal Logstash User"
+}
