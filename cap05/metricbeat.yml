@@ -1,0 +1,11 @@
+setup.kibana:
+  host: "localhost:5601"
+  username: "elastic"
+  password: "123456"
+
+
+output.elasticsearch:
+  hosts: ["192.168.30.50:9200"]
+  protocol: "http"
+  username: "elastic"
+  password: "123456"
