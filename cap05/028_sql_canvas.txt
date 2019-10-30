@@ -24,8 +24,14 @@ SELECT clientip.keyword as urls, count(*) as total FROM "logstash-*"
 group by clientip.keyword
 order by total desc
 limit 5
+# Grafico por IPS
+SELECT clientip.keyword as urls, count(*) as total FROM "logstash-*"
+group by clientip.keyword
+order by total desc
+limit 5
 
-# Grafico de Linha
+
+# Grafico de Linha Pais 
 SELECT geoip.country_code2 as pais, count(*) as total FROM "logstash-*"
 group by geoip.country_code2
 order by total desc
