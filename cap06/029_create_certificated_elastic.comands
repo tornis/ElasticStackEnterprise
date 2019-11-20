@@ -17,6 +17,5 @@ Enter password for elastic-certificates.p12 : DIGITE ENTER
 # Certificates written to /usr/share/elasticsearch/elastic-certificates.p12
 
 # cp /usr/share/elasticsearch/elastic-* /etc/elasticsearch/certs/ 
-# chown. elasticsearch. /etc/elasticsearch/certs/* 
-
+# chown elasticsearch. /etc/elasticsearch/certs/* 
 

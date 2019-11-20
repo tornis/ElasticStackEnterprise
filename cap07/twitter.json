@@ -1,12 +1,12 @@
+PUT _template/twitter
 {
-  "template": "twitter-*",
+  "index_patterns": "twitter-*",
   "settings": {
     "number_of_shards": 1,
     "number_of_replicas": 0,
     "index.mapping.total_fields.limit": 2000
   },
   "mappings": {
-    "_default_": {
       "properties": {
         "@timestamp": {
           "type": "date",
@@ -70,5 +70,4 @@
         }
       ]
     }
-  }
 }

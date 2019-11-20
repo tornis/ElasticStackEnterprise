@@ -1,0 +1,43 @@
+# yum install nfs-utils
+# mkdir -p /opt/essnapshot
+# vi /etc/fstab
+192.168.0.1:/opt/essnapshot    /opt/essnapshot   nfs defaults 0 0
+
+# mount -a 
+
+
+
+# Configurando o NFS Server  
+
+# yum install nfs-utils
+# mkdir /opt/essnapshot
+# chmod -R 755 /opt/essnapshot
+# chown nfsnobody:nfsnobody /opt/essnapshot
+# systemctl enable rpcbind
+# systemctl enable nfs-server
+# systemctl enable nfs-lock
+# systemctl enable nfs-idmap
+# systemctl start rpcbind
+# systemctl start nfs-server
+# systemctl start nfs-lock
+# systemctl start nfs-idmap
+
+# vi /etc/exports
+/opt/essnapshot    192.168.0.1(rw,sync,no_root_squash,no_all_squash)
+
+# systemctl restart nfs-server
+
+# firewall-cmd --permanent --zone=public --add-service=nfs
+# firewall-cmd --permanent --zone=public --add-service=mountd
+# firewall-cmd --permanent --zone=public --add-service=rpc-bind
+# firewall-cmd --reload
+
+
+# Configurando o Cliente NFS 
+
+# yum install nfs-utils
+# mkdir -p /opt/essnapshot
+# vi /etc/fstab
+192.168.0.1:/opt/essnapshot    /opt/essnapshot   nfs defaults 0 0
+
+# mount -a 
