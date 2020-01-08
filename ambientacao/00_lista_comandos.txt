@@ -1,0 +1,4 @@
+# Lista de comandos
+yum install -y curl 
+curl -o /elasticstack/prepare_ambience.sh -X GET  https://raw.githubusercontent.com/tornis/ElasticStackEnterprise/master/ambientacao/prepare_ambience.sh
+sh /elasticstack/prepare_ambience.sh
