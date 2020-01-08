@@ -20,7 +20,7 @@ sysctl -w net.ipv6.conf.default.disable_ipv6=1
 mkdir -p $ESSTACK_DIR/datasets
 
 #Instalando as ferramentas do SO
-yum install -y tzdata net-tools curl git
+yum install -y tzdata net-tools curl git java-1.8.0-openjdk
 
 # Baixando as ferramentas da Stack
 for APPS in $ES_APPS; do
