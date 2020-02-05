@@ -1,0 +1,16 @@
+instances:
+  - name: "master" 
+    dns:
+      - "master"
+    ip:
+      - "172.20.10.8"
+  - name: "datanode-1"
+    dns:
+      - "datanode-1"
+    ip:
+      - "172.20.10.9"
+  - name: "datanode-2"
+    dns:
+      - "datanode-2"
+    ip:
+      - "172.20.10.10"
