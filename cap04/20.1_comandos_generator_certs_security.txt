@@ -1,0 +1,70 @@
+# Gerando os certificados para os nodes e masters 
+
+yum install unzip 
+
+# Fazer o download do nodes-certs.yml a ajustar os nomes e ips conforme sua infra
+
+mkdir /opt/elastic
+cd /opt/elastic
+wget https://raw.githubusercontent.com/tornis/ElasticStackEnterprise/master/cap04/nodes-cert.yml
+
+# Executar a criação dos certificados
+
+/usr/share/elasticsearch/bin/elasticsearch-certutil cert --in /opt/elastic/nodes-cert.yml --keep-ca-key --out /opt/elastic/certificados-nodes.zip
+
+# Criando os diretorios onde ficaram os certificados(fazer em todos os nodes) 
+
+mkdir /etc/elasticsearch/certs 
+
+# Movendo o arquivo de certificados para pasta certs e descompactando 
+
+cp certificados-nodes.zip /etc/elasticsearch/certs 
+cd /etc/elasticsearch/certs
+unzip certificados-nodes.zip
+
+# Convertendo o certificado p12 para .pem para o Kibana e Logstash
+
+cd /etc/elasticsearch/certs/ca
+openssl pkcs12 -in ca.p12 -clcerts -nokeys -chain -out ca.pem 
+
+# Copiar os certificados nos node Elastic 
+scp /etc/elasticsearch/certs/ca/* scp /etc/elasticsearch/certs/datanode-1/* root@172.20.10.9:/etc/elasticsearch/certs/ 
+(OBS copiar para TODOS os nodes)
+
+# Configurar o elasticsearch.yml em TODOS os nodes
+
+xpack.security.enabled: true
+xpack.security.transport.ssl.enabled: true
+xpack.security.transport.ssl.keystore.path: /etc/elasticsearch/certs/datanode-2.p12
+xpack.security.transport.ssl.truststore.path: /etc/elasticsearch/certs/datanode-2.p12
+
+
+# Setar a senha builtin dos usuários do elasticsearch (Apenas no MASTER)
+
+/usr/share/elasticsearch/bin/elasticsearch-setup-passwords interactive
+
+(OBS: Coloque a senha 123456 para todos os usuários)
+
+# Testando o acesso ao Elastic
+
+curl -u elastic:123456 http://172.20.10.8:9200/_cat/health
+
+# Configurando o Kibana para acesso ao Elasticsearch 
+
+mkdir /etc/kibana/certs 
+chown -R root:kibana /etc/kibana/certs 
+chmod 750 -R /etc/kibana/certs
+
+# Copie a ca.pem para o kibana 
+
+cp /etc/elasticsearch/certs/ca/ca.pem /etc/kibana/certs/ 
+
+# Ajuste o kibana.yml e configure o acesso ao do kibana ao elastic
+
+elasticsearch.hosts: ["https://172.20.10.8:9200","https://172.20.10.9:9200"]
+elasticsearch.ssl.certificateAuthorities: ["/etc/kibana/certs/ca.pem"]
+
+# Reinicie o Kibana
+systemctl restart kibana
+
+
