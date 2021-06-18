@@ -25,7 +25,7 @@ yum install -y tzdata net-tools curl git java-1.8.0-openjdk
 # Baixando as ferramentas da Stack
 for APPS in $ES_APPS; do
    if [ "$APPS" == "logstash/logstash" ]; then
-      wget -P $ESSTACK_DIR https://artifacts.elastic.co/downloads/$APPS.tar.gz
+      wget -P $ESSTACK_DIR https://artifacts.elastic.co/downloads/logstash/logstash-7.5.1.tar.gz
    else 
       wget -P $ESSTACK_DIR https://artifacts.elastic.co/downloads/$APPS-$ES_VERSION.tar.gz
    fi
