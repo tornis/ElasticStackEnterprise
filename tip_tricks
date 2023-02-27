@@ -1,0 +1,10 @@
+# Ratio in timelion 
+(.es(index="traces-apm*,apm-*,logs-apm*,apm-*,metrics-apm*,apm-*",interval=5m,q='processor.event: transaction AND transaction.name: "TransacaoController#criarTransacaoComCodigoDeBarras" AND http.response.status_code:  [ 400 TO 599 ]').divide(.es(index="traces-apm*,apm-*,logs-apm*,apm-*,metrics-apm*,apm-*",interval=5m,q='processor.event: transaction AND transaction.name:"TransacaoController#criarTransacaoComCodigoDeBarras"'))).multiply(100).if(lt,98,null).points(fill=1,weight=1,radius=3).color(blue).label('% de transações >= 98%'),
+(.es(index="traces-apm*,apm-*,logs-apm*,apm-*,metrics-apm*,apm-*",interval=5m,q='processor.event: transaction AND transaction.name: "TransacaoController#criarTransacaoComCodigoDeBarras" AND http.response.status_code:  [ 400 TO 599 ]').divide(.es(index="traces-apm*,apm-*,logs-apm*,apm-*,metrics-apm*,apm-*",interval=5m,q='processor.event: transaction AND transaction.name:"TransacaoController#criarTransacaoComCodigoDeBarras"'))).multiply(100).if(gt,98,null).if(lte,1,null).points(fill=1,weight=1,radius=3).color("#E77800").label('% de transações < 98%'),
+.es(
+    index=elastalert_*,interval=5m,
+    q='match_body.transaction.name: "TransacaoController#criarTransacaoComCodigoDeBarras"'
+ ).bars(
+    width=1
+ ).color(red).multiply(1).label('Total de Alertas').title('Transaction: TransacaoController#criarTransacaoComCodigoDeBarras').legend(columns=5, position=nw).yaxis(3,position=right),
+.static(98,baseline).lines(width=0.5).color("#053B06").label('Threshold 98%')
